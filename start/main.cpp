@@ -13,7 +13,7 @@ ServiceInterfaceStream sif::warning("WARNING", false);
 ServiceInterfaceStream sif::error("ERROR", false, true, true);
 #endif
 
-
 int main() {
     cout << "hello world!" << endl;
+
 }
