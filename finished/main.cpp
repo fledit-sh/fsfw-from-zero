@@ -52,6 +52,7 @@ class MyExecutable: public SystemObject, public ExecutableObjectIF {
 static const object_id_t MY_OBJ = 1;
 
 void objFactory(void* args);
+
 int main() {
     using namespace std::chrono_literals;
     cout << "hello world!" << endl;
