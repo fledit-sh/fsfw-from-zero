@@ -8,8 +8,10 @@ project(foo VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# This adds a library target called "foo"
-add_executable(fsfw-from-zero)
-target_sources(fsfw-from-zero PRIVATE main.cpp)
+add_subdirectory(start)
 
-# target_link_libraries(fsfw-from-zero PRIVATE fsfw)
+set(FSFW_OSAL host)
+set(FSFW_CONFIG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/start)
+
+add_subdirectory(fsfw)
+target_link_libraries(fsfw-from-zero PRIVATE fsfw)
