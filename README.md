@@ -24,3 +24,10 @@ same name.
 It is recommended to have a basic understanding of C++ basics and object-oriented programming
 in general before doing this workshop. There are various books and online resources available to
 learn this.
+
+## Tasks Workshop
+
+This chapter provides an introduction into the thread/tasks abstractions provided by the framework. The chapter descriptions and solutions are
+locaited inside `01-tasks`.
+
+It is recommended to start with this workshop.
