@@ -100,12 +100,14 @@ pure virtual functions.
     ```cpp
     virtual ~<Class>() = default;
     ```
+
  3. Add a abstract virtual function `performOperation`.
     Abstract virtual functions look like this in general
 
     ```cpp
     virtual <functionName>(...) = 0;
     ```
+
  4. Implement you custom interface for `MyExecutableObject` by re-using the exsiting
     `performOperation` function. In general, when implementing
     an interface or overriding a virtual function, it is recommended to add the `override` keyword
@@ -122,14 +124,15 @@ pure virtual functions.
     to inheritance for flexible software designs. The new `MyPeriodicTask` class should
     have a ctor which expects a `MyExecutableObjectIF` by reference and the task frequency in
     milliseconds as an `uint32_t`. It caches both the executbale object and the task frequency
-    as private member variables. Also add a `std::thread` member variable.
- 6. Add a public `start` function and leave it empty for now.
+    as private member variables.
+ 6. Add a public `start` function which returns a `std::thread` and leave it empty for now.
  7. Add a private static `executeTask` method which expects `MyPeriodicTask` by reference.
     Its implementation is similar to the `executeTask` method of `MyExecutableObject`.
     Remove the `executeTask` implementation from `MyExecutableObject`.
  8. In the start method, use `std::thread` API with `MyPeriodicTask::executeTask` as the
     executed function. Pass the task itself by reference similarly to how it was done in task 2.
-    Cache the created thread into the thread member variable.
+    Return the created thread directly, so callers can use the `join` method to block on thread
+    completion.
 
 We now have two separate classes where one class only contains application logic and the other
 one only contains scheduling logic. The `MyPeriodicTask` is also able to schedule arbitrary
@@ -169,7 +172,8 @@ It also offers a unform API to execute periodic tasks in form of the
 [`PeriodicTaskIF`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw/src/branch/master/src/fsfw/tasks/PeriodicTaskIF.h).
 
 These tasks can then be created using the
-[`TaskFactory`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw/src/branch/master/src/fsfw/tasks/TaskFactory.h) singleton.
+[`TaskFactory`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw/src/branch/master/src/fsfw/tasks/TaskFactory.h)
+singleton.
 
 An arbitrary number of executable objects can then be passed to a periodic task. These objects
 are then executed sequentially. This allows a granular design of executable tasks.
@@ -228,7 +232,7 @@ the execution slot. This is useful for objects where there are multiple processi
 but the steps take different amount of times.
 
 In examples or other OBSW implementations using the framework, you will often
-see the distrinction between an `ObjectFactory.cpp` and an `InitMission.cpp`.
+see the distinction between an `ObjectFactory.cpp` and an `InitMission.cpp`.
 In the first file, all global (executable) objects will be created. In the second file,
 all of these objects will be scheduled. Another chapter will introduce the Object Manager
 to show what exactly is happening here.

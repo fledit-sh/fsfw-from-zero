@@ -7,6 +7,15 @@ for people with basic C++ skills who want to learn how the FSFW works and how to
 On-Board Software (OBSW) in general. This workshop does not rely on external hardware
 and can be done on a host machine (e.g. laptop).
 
+# Requirements
+
+1. [`git`](https://git-scm.com/) installed
+2. [`cmake`](https://cmake.org/) installed as the build system generator
+3. C++ compiler installed. On Windows, you can use [MinGW64](https://www.msys2.org/) or
+   [clang](https://releases.llvm.org/download.html). On Unix, you can use the pre-installed GCC
+4. Build system for C/C++ installed. For Windows, it is recommended to use [ninja](https://ninja-build.org/).
+   On Unix, you can use the pre-installed `make` tool.
+
 # Getting started
 
 Start by cloning this repository and updating the submodules to also clone
@@ -60,7 +69,7 @@ by example and how to intgerate a library without CMake support.
 This chapter will introduce the object manager and expand the knowledge of the tasks workshop
 by showing how to conveniently create global addressable objects. It also provides an
 introduction into TMTC handling, as virtually all space systems are remote systems where
-telemetry and telecommands are the pŕimary data interface available to communicate with the satellite.
+telemetry and telecommands are the primary data interface available to communicate with the satellite.
 
 ## Controller workshop
 
