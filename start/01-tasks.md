@@ -17,9 +17,9 @@ guarantees that these tasks are performed within a certain temporal bound.
 
 Some common operating system in the Space domain able to do this:
 
-- FreeRTOS for smaller MCUs (SOURCE)
-- Embedded Linux (EIVE)
-- RTEMS (FLP)
+- FreeRTOS for smaller MCUs (e.g. SOURCE CubeSat project)
+- Embedded Linux (EIVE CubeSat project)
+- RTEMS (FLP satellite project)
 
 All these operating system use threads or tasks as the basic worker unit which is executing code.
 This chapter first introduces threads as they are exposed by the C++ standard library.
