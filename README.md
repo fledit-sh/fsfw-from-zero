@@ -3,7 +3,10 @@ FSFW From Zero Workshop
 
 This workshop gives an introduction to the Flight Software Framework,
 starting from a simple hello world program in C++. As such, it it also suitable
-for C++ beginners.
+for people with basic C++ skills who want to learn how the FSFW works and how to build
+On-Board Software (OBSW) in general.
+
+# Getting started
 
 Start by cloning this repository and updating the submodules to also clone
 the [Flight Software Framework](https://egit.irs.uni-stuttgart.de/fsfw):
@@ -14,10 +17,7 @@ git submodule init
 git submodule update
 ```
 
-# Building the Workshop Application
-
-This workshop uses CMake like the framework to build the application
-
+This workshop uses CMake like the framework to build the application.
 This command sequence will build the software
 
 ```sh
