@@ -1,10 +1,9 @@
 #include <iostream>
 
 #include "fsfw/serviceinterface.h"
-#include "FSFWConfig.h"
+#include "fsfw/FSFW.h"
 
 using namespace std;
-
 
 #if FSFW_CPP_OSTREAM_ENABLED == 1
 ServiceInterfaceStream sif::debug("DEBUG", false);
@@ -15,5 +14,4 @@ ServiceInterfaceStream sif::error("ERROR", false, true, true);
 
 int main() {
     cout << "hello world!" << endl;
-
 }
