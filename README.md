@@ -46,6 +46,16 @@ The chapter descriptions and solutions are located inside `01-tasks`.
 
 It is recommended to start with this workshop.
 
+## Structuring your project and managing third-party dependencies
+
+OBSW usually becomes very complex as more and more features and functionality is added.
+We need to split the software into smaller dedicated modules as this happens to keep complexity
+in check. This workshop shows how this is done with CMake. Another common
+task is the integration of third-party libraries. In general, this is a painful process
+in C/C++ with no built-in package management and an archaic header system. This workshop
+will attempt to alleviate some of the pain by showing how to integrate a CMake compatible library
+by example.
+
 ## Object Manager and TMTC handling workshop
 
 This chapter will introduce the object manager and expand the knowledge of the tasks workshop
