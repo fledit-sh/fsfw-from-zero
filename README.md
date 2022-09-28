@@ -14,20 +14,46 @@ git submodule init
 git submodule update
 ```
 
+# Building the Workshop Application
+
+This workshop uses CMake like the framework to build the application
+
+This command sequence will build the software
+
+```sh
+mkdir build
+cd build && cmake ..
+cmake --build . -j
+```
+
+This will generate the `fsfw-from-zero` executable inside the build folder.
+It is recommended to use an IDE like VS Code or CLion. Those generally have good
+CMake support.
+
 # Overview
 
-This workshop does an incremental build-up of a simple software which
-is similar to an On-Board Software. It is organised in chapters which have multiple
-tasks. For each task, a solution source file will be provided. in a related subfolder with the
-same name.
+This workshop is organised in chapters which have multiple tasks. For each task, solution source
+files will be provided but you are encouraged to work to the solution on your own.
 
 It is recommended to have a basic understanding of C++ basics and object-oriented programming
 in general before doing this workshop. There are various books and online resources available to
 learn this.
 
-## Tasks Workshop
+## Tasks workshop
 
-This chapter provides an introduction into the thread/tasks abstractions provided by the framework. The chapter descriptions and solutions are
-locaited inside `01-tasks`.
+This chapter provides an introduction into the thread/tasks abstractions provided by the framework.
+The chapter descriptions and solutions are located inside `01-tasks`.
 
 It is recommended to start with this workshop.
+
+## Object Manager and TMTC handling workshop
+
+This chapter will introduce the object manager and expand the knowledge of the tasks workshop
+by showing how to conveniently create global addressable objects. It also provides an
+introduction into TMTC handling, as virtually all space systems are remote systems where
+telemetry and telecommands are the pŕimary data interface available to communicate with the satellite.
+
+## Controller workshop
+
+This chapter will introduce the `ControllerBase` and `ExtendedControllerBase` class
+and the various helper interfaces they expose.
