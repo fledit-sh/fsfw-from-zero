@@ -9,6 +9,9 @@ and can be done on a host machine (e.g. laptop).
 
 # Requirements
 
+For you own sanity, I really recommend doing this in an Unix environment. If you do not have
+or do not want to use a VM, consider using [Ubuntu WSL](https://ubuntu.com/wsl) on Windows.
+
 1. [`git`](https://git-scm.com/) installed
 2. [`cmake`](https://cmake.org/) installed as the build system generator
 3. C++ compiler installed. On Windows, you can use [MinGW64](https://www.msys2.org/) or
