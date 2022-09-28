@@ -17,6 +17,10 @@ git submodule update
 # Overview
 
 This workshop does an incremental build-up of a simple software which
-is similar to an On-Board Software.
+is similar to an On-Board Software. It is organised in chapters which have multiple
+tasks. For each task, a solution source file will be provided. in a related subfolder with the
+same name.
 
-It is organised in chapters which have a task description.
+It is recommended to have a basic understanding of C++ basics and object-oriented programming
+in general before doing this workshop. There are various books and online resources available to
+learn this.
