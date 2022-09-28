@@ -4,7 +4,8 @@ FSFW From Zero Workshop
 This workshop gives an introduction to the Flight Software Framework,
 starting from a simple hello world program in C++. As such, it it also suitable
 for people with basic C++ skills who want to learn how the FSFW works and how to build
-On-Board Software (OBSW) in general.
+On-Board Software (OBSW) in general. This workshop does not rely on external hardware
+and can be done on a host machine (e.g. laptop).
 
 # Getting started
 
@@ -43,8 +44,6 @@ learn this.
 
 This chapter provides an introduction into the thread/tasks abstractions provided by the framework.
 The chapter descriptions and solutions are located inside `ws-tasks`.
-
-It is recommended to start with this workshop.
 
 ## Structuring your project and managing third-party dependencies with CMake
 
