@@ -42,7 +42,7 @@ learn this.
 ## Tasks workshop
 
 This chapter provides an introduction into the thread/tasks abstractions provided by the framework.
-The chapter descriptions and solutions are located inside `01-tasks`.
+The chapter descriptions and solutions are located inside `ws-tasks`.
 
 It is recommended to start with this workshop.
 
