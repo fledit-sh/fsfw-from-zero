@@ -35,13 +35,13 @@ string every second: "Hello World".
 
 ## 2. Changing to the concept of executable objects
 
-The goal of this task is to convert the code from task 1 so the [std::thread] API takes an
+The goal of this task is to convert the code from task 1 so the `std::thread` API takes an
 executable object to move to a more object oriented task approach. The printout of the thread
 should remain the same. The executable objects should be named `MyExecutableObject`. It contains
 one function called `periodicOperation` which performs the printout, and a static function which
 takes the `MyExecutableObject` itself by reference and executes it in a permanent loop.
 
-The executable object should be passed into the [std::thread] directly.
+The executable object should be passed into the `std::thread` directly.
 
 ### Hints
 
