@@ -70,11 +70,19 @@ from the scheduling logic inside `executeTask`. This is also called seperation o
 
 ## 3. Making the executable objects generic
 
-Our approach is useful buts lacks being generic as it relies on `std` library API. C++ as an OOP
-language provides abstraction in form of interfaces, which can be used to have different types of
-generic executable objects. Interfaces usually do not have a lot of source code on their own. They
-describe a design contract a class should have which implements the interface. In general, the FSFW
-relies heavily on subclassing and inheritance to provide adaptions point to users.
+Threads generally expect a function which is then directly executed.
+Sometimes, the execution of threads needs to be deferred. For example, this can be useful
+if the execution of tasks should only start after a certain condition.
+
+Also, it might become useful to model any task in form of a class. An instantiation
+of that class would then be an executable object. Another point is that even though
+we have seperated the scheduling specific part from the application logic, they are still
+part of the same class. It would be nice to have two separate classes for this.
+
+C++ as an OOP language provides abstraction in form of interfaces, which can be used to have
+different types of generic executable objects. Interfaces usually do not have a lot of source code
+on their own. They describe a design contract a class should have which implements the interface.
+In general, the FSFW relies heavily on subclassing and inheritance to provide adaptions point to users.
 
 We are going to refactor our `MyExecutableObject` by introducing an interface for any executable
 object. We are then going to add a generic class which expects an object fulfilling this design
@@ -112,18 +120,50 @@ pure virtual functions.
     are now explicitely decoupled by using composition. Composition means that we have
     a "has-a" relationship instead of a "is-a" relationship. In general, composition is preferable
     to inheritance for flexible software designs. The new `MyPeriodicTask` class should
-    have a ctor which expects a `MyExecutableObjectIF` by reference. It caches that object
-    and exposes a `start` method to start the task
+    have a ctor which expects a `MyExecutableObjectIF` by reference and the task frequency in
+    milliseconds as an `uint32_t`. It caches both the executbale object and the task frequency
+    as private member variables. Also add a `std::thread` member variable.
+ 6. Add a public `start` function and leave it empty for now.
+ 7. Add a private static `executeTask` method which expects `MyPeriodicTask` by reference.
+    Its implementation is similar to the `executeTask` method of `MyExecutableObject`.
+    Remove the `executeTask` implementation from `MyExecutableObject`.
+ 8. In the start method, use `std::thread` API with `MyPeriodicTask::executeTask` as the
+    executed function. Pass the task itself by reference similarly to how it was done in task 2.
+    Cache the created thread into the thread member variable.
+
+We now have two separate classes where one class only contains application logic and the other
+one only contains scheduling logic. The `MyPeriodicTask` is also able to schedule arbitrary
+types which implement `MyExecutableObjectIF`. Finish this task
+by crating 3 different executable objects where each object does or prints our something
+different. Then pass all of those three different objects to a `MyPeriodicTask` and start
+all three periodic tasks which three different frequencies.
+
+You now should have code which looks something like this:
+
+```cpp
+int main() {
+    MyExecutableObject0 myExecutableObject0;
+    MyExecutableObject1 myExecutableObject1;
+    MyExecutableObject2 myExecutableObject2;
+    MyPeriodicTask task0(myExecutableObject0, 1000);
+    MyPeriodicTask task1(myExecutableObject1, 2000);
+    MyPeriodicTask task2(myExecutableObject2, 5000);
+    auto thread0 = task0.start();
+    auto thread1 = task1.start();
+    auto thread2 = task2.start();
+    thread0.join();
+    thread1.join();
+    thread2.join();
+    return 0;
+}
+```
+
+Where the three tasks do their tasks with different frequencies.
 
 ## 3. Using the framework abstractions
 
-Threads generally expect a function which is then directly executed.
-Sometimes, the execution of threads needs to be deferred. For example, this can be useful
-if the execution of tasks should only start after a certain condition.
-
-Also, it might become useful to model any task in form of a class. An instantiation
-of that class would then be an executable object. This is precisely what the framework
-exposes in form of the [`ExecutableObjectIF`](https://documentation.irs.uni-stuttgart.de/fsfw/development/api/task.html).
+We now use framework components to perform the tasks shown above. The framework
+exposes an abstractions for executable tasks called [`ExecutableObjectIF`](https://documentation.irs.uni-stuttgart.de/fsfw/development/api/task.html).
 
 It also offers a unform API to execute periodic tasks in form of the
 [`PeriodicTaskIF`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw/src/branch/master/src/fsfw/tasks/PeriodicTaskIF.h).
@@ -136,10 +176,22 @@ are then executed sequentially. This allows a granular design of executable task
 For example, important tasks get an own dedicated thread while other low priority objects are
 scheduled consecutively in another thread.
 
-The task abstractions have the following advantages:
+In summary, task abstractions have the following advantages:
 
 - Task execution can be deferred until an explicit `start` method is called
 - Same uniform API across multiple operating systems
 
-The goal of this task is to implement the task specified in 1 using the
-abstractions provided in step 1.
+### Subtasks
+
+ 1. Load the required interfaces:
+     - `#include "fsfw/tasks/ExecutableObjectIF"`
+     - `#include "fsfw/tasks/PeriodicTaskIF`
+     - `#include "fsfw/tasks/TaskFactory`
+ 2. For your three custom objects, implement the executable object IF provided by the framework
+    instead of your custom interface
+ 3. Create two periodic tasks using the `TaskFactory::createPeriodicTask` function
+ 4. Add the first two of your custom exec objects to the first periodic task. Those tasks
+    will be executed in the same thread consecutively
+ 5. Add the third custom exec object to the second periodic task. The third object
+    gets an own thread
+ 6. Start both periodic tasks
