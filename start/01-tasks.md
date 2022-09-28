@@ -160,7 +160,7 @@ int main() {
 
 Where the three tasks do their tasks with different frequencies.
 
-## 3. Using the framework abstractions
+## 4. Using the framework abstractions
 
 We now use framework components to perform the tasks shown above. The framework
 exposes an abstractions for executable tasks called [`ExecutableObjectIF`](https://documentation.irs.uni-stuttgart.de/fsfw/development/api/task.html).
@@ -184,14 +184,51 @@ In summary, task abstractions have the following advantages:
 ### Subtasks
 
  1. Load the required interfaces:
-     - `#include "fsfw/tasks/ExecutableObjectIF"`
-     - `#include "fsfw/tasks/PeriodicTaskIF`
-     - `#include "fsfw/tasks/TaskFactory`
+     - `#include "fsfw/tasks/ExecutableObjectIF.h"`
+     - `#include "fsfw/tasks/PeriodicTaskIF.h`
+     - `#include "fsfw/tasks/TaskFactory.h`
  2. For your three custom objects, implement the executable object IF provided by the framework
-    instead of your custom interface
- 3. Create two periodic tasks using the `TaskFactory::createPeriodicTask` function
+    instead of your custom interface.
+ 3. In your main function, create an instance of the `TaskFactory`. `TaskFactory`
+    is implemented as a singleton: The object will create itself when using
+    `TaskFactory::instance`. All subsequent calls will return the same intance.
+    There are other similar singletons to create other objects like mutexes or message queues.
+ 3. Create two periodic tasks using the `TaskFactory::createPeriodicTask` function.
+    Some notes on the expected arguments:
+     - Each task has a name. This is useful for debugging, especially because the framework
+       abstractons can detect missed deadlines.
+     - The task priority parameter is OS dependent. This parameter is currently ignored for the
+       Linux OSAL so you can pass 0 here.
+       On Windows, you can retrieve the priority by using `tasks::makeWinPriority`
+       which can be loaded by including `#include "fsfw/osal/windows/winTaskHelpers.h"`
+     - The stack space parameter is generally ignored or unimportant for host systems.
+       You can simply pass `PeriodicTaskIF::MINIMUM_STACK_SIZE` here. This parameter becomes
+       important on resource constrained OSes and systems, for example FreeRTOS.
+     - The frequency is expected as floating point seconds
+     - You can pass a function which will be called when a deadline is missed. This is the case
+       when a tasks took longer than its designated slot frequency. This is useful to detect
+       bugs in the software or generally detect when tasks require a large amount of time.
+       You can also pass `nullptr` here if you do not want any function to be called.
  4. Add the first two of your custom exec objects to the first periodic task. Those tasks
-    will be executed in the same thread consecutively
+    will be executed in the same thread consecutively. You can use the `PeriodicTaskIF::addComponent`
+    method to do this.
  5. Add the third custom exec object to the second periodic task. The third object
     gets an own thread
- 6. Start both periodic tasks
+ 6. Start both periodic tasks and add a permanent loop at the end of the main
+    method which puts the main thread into sleep.
+
+You successfully scheduled some objects using the framework!
+The general concept of executble objects is used heavily throughout the framework.
+For example, each device handler or controller is an executable object, as the bases
+classes exposed by the framework implement `ExecutableObjectIF`.
+
+There is also another type of periodic task handler called `FixedTimeslotTask`. Here,
+you can explicitely specify (multiple) execution slots with a specified relative time within
+the execution slot. This is useful for objects where there are multiple processing steps
+but the steps take different amount of times.
+
+In examples or other OBSW implementations using the framework, you will often
+see the distrinction between an `ObjectFactory.cpp` and an `InitMission.cpp`.
+In the first file, all global (executable) objects will be created. In the second file,
+all of these objects will be scheduled. Another chapter will introduce the Object Manager
+to show what exactly is happening here.
