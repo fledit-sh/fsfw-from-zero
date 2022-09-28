@@ -56,7 +56,7 @@ scheduled consecutively in another thread.
 
 The goal of this task is to convert the code from task 1 so the [std::thread]
 API takes an executable object to move to a more object oriented task approach. 
-The printout of the threaf should remain the same.
+The printout of the thread should remain the same.
 
 It is recommended to pass this executable object into the [std::thread] directly.
 
@@ -74,7 +74,7 @@ objects and describes a certain API contract an object has to fulfill.
 As described before, the framework provides task abstraction with some advantages
 
 - Task execution can be deferred until an explicit `start` method is called
-- Same uniform API for multiple operating systems
+- Same uniform API across multiple operating systems
 
 The goal of this task is to implement the task specified in 1 using the
 abstractions provided in step 1.
