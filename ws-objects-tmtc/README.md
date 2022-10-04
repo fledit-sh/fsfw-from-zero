@@ -72,3 +72,9 @@ all its registered objects.
 
 ## Subtasks
 
+ 1. Register the `MySystemObject` class into the global object manager. You can do this with a
+    simple tweak of the base class constructor.
+ 2. Remove the `delete` call. The object manager will delete all of its contained objects
+    automatically in its own destructor
+ 3. Retrieve the global instance of the object manager using its static `instance` method
+    and use it to initialize all system objects including your custom system object.

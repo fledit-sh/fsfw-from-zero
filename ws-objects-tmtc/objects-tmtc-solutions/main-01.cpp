@@ -6,7 +6,7 @@ using namespace std;
 
 class MySystemObject: public SystemObject {
 public:
-    MySystemObject(): SystemObject(0x10101010) {}
+    MySystemObject(): SystemObject(0x10101010, false) {}
     ReturnValue_t initialize() override {
         cout << "MySystemObject::initialize: Custom init" << endl;
     }
@@ -14,9 +14,9 @@ public:
 
 int main() {
     auto* mySysObj = new MySystemObject();
-    auto* objManager = ObjectManager::instance();
     cout << "Object ID: " << setfill('0') << hex << "0x" << setw(8) <<
         mySysObj->getObjectId() << endl;
-    objManager->initialize();
+    mySysObj->initialize();
+    delete mySysObj;
     return 0;
 }
