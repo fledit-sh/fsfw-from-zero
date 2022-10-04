@@ -66,9 +66,12 @@ when inserting new entries.
 
 The `SystemObject` base class will take care of automatically registering the object at the
 global object manager as part of its constructor. The object manager stores all inserted objects
-by the `SystemObject` base class pointer inside a hash map, so all inserted objects can be
+by the `SystemObjectIF` base class pointer inside a hash map, so all inserted objects can be
 retrieved at a later stage. The object manager is also able to call the `initialize` method of
-all its registered objects.
+all its registered objects. The initialize method allows to return an explicit returnvalue
+for failed object initialization. This is generally not possible for object constructors.
+The usual way to have an object construction fail is to use exceptions, which might or might not
+be available to your project.
 
 ## Subtasks
 
@@ -78,3 +81,21 @@ all its registered objects.
     automatically in its own destructor
  3. Retrieve the global instance of the object manager using its static `instance` method
     and use it to initialize all system objects including your custom system object.
+ 4. Retrieve the concrete instance of your object using the `ObjectManager` `get` method.
+    Please note that you explicitely have to specify the target type you want to retrieve
+    using a template argument to `get`. Use that instance to retrieve and print the object ID
+    instead of using the instance returned by `new`
+
+# 3. Schedule your object using its object ID
+
+The object ID is now an addressing unit which can be used at various places in the framework.
+One example is to schedule the object. This means that instead of passing the concrete instance
+of the object, you can also add units to schedule by using their object ID
+
+## Subtasks
+
+ 1. Retrieve the global instance of the `TaskFactory` using its static `instance` method.
+ 2. Create a new enum called `ObjectIds` and make your object ID an enum number
+    if it. If this is not the case already, refactor your `MySystemObject` to expect
+    the Object ID via constructor argument.
+ 2. Create a `PeriodicTask` and add your custom system object using its object ID
