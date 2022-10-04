@@ -67,6 +67,13 @@ This chapter will introduce the object manager and expand the knowledge of the t
 by showing how to conveniently create global addressable objects. The chapter description and
 solutions are located inside [`ws-objects`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw-from-zero/src/branch/main/ws-objects).
 
+## WIP: IPC workshop
+
+Usually, objects have to interact with other objects or software internal entities like
+threads of OS services in some shape or form. This workshop introduced methods to perform
+this Inter-Process communication (IPC) in a thread-safe way. The chapter description
+and solutions are located inside [`ws-ipc`]()
+
 ## WIP: TMTC workshop
 
 Provides an introduction into TMTC handling, as virtually all space systems are remote systems

@@ -139,7 +139,7 @@ of the object, you can also add units to schedule by using their object ID.
 Please note that the object manager is a software entity which global mutable state. This
 is something which can easily introduce subtle and dangerous bugs into a multi-threaded
 software. If you are sharing an object with the manager between multiple threads, all object
-access needs to be protected explicitely with concurrency tools like a Mutex by the developer.
+accesses needs to be protected explicitely with concurrency tools like a Mutex by the developer.
 
 The object manager has no own capabilities to ensure thread-safey in such a case.
 It is recommended to do the `ws-ipc` workshop to get familiar with various ways for objects
