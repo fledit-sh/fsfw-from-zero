@@ -60,7 +60,7 @@ In general, it is recommended to start with the `ws-tasks` workshop and then mov
 This chapter provides an introduction into the thread/tasks abstractions provided by the framework.
 The chapter descriptions and solutions are located inside `ws-tasks`.
 
-## Object Manager and TMTC handling workshop
+## Objects and Object Manager workshop
 
 This chapter will introduce the object manager and expand the knowledge of the tasks workshop
 by showing how to conveniently create global addressable objects. The chapter description and
