@@ -1,4 +1,4 @@
-# Object Manager
+# Global Addressable Objects and the Object Manager
 
 The FSFW is an object-oriented framework and uses the concept of classes and objects to model the
 satellite. Usually, every non-trivial object in the flight software is assigned a 32-bit object ID.
