@@ -1,8 +1,19 @@
 # Global Addressable Objects and the Object Manager
 
-The FSFW is an object-oriented framework and uses the concept of classes and objects to model the
-satellite. Usually, every non-trivial object in the flight software is assigned a 32-bit object ID.
-This ID is then used as an address field for various command types.
+The FSFW is an object-oriented framework and uses the concept of classes and objects to model a
+remote system like a satellite. Usually, every non-trivial object in the flight software is assigned
+a 32-bit object ID. This ID is then used as an address field for that object. Lets say for example
+that you want to change the ACS controller mode and the controller has the object ID 0x12345678.
+You would then send a mode command to the object 0x12345678 to do this task. In general, using
+objects allows software developers to model the architecture of the satellite and also makes it
+easier for SW developers to reason with Operations about what the satellite should be capable of.
+
+Some other examples of addressable building blocks of a software built with the FSFW could be
+
+ - Device handlers for external sensors or payloads
+ - Assembly components which manage device redundancy
+ - Subsystem components which perform the mode and health management of related device, assembly
+   and controller objects
 
 The framework also has a global singleton class to store global objects and retrieve them back
 in an arbitrary format (e.g. only a certain interface of an object) at a later point.
@@ -50,9 +61,11 @@ In this chapter, a custom class will be created which is insertable into the glo
 
 In desktop programs, it is very common to simply dynamically allocate all required resources
 as they are required. It should be noted that dynamic memory allocation can show non-deterministic
-behaviour, which is non-favorable in real-time environments. Especially on smaller systems, where
-the RAM might be limited to something like for example 1 MB, one has to be really careful with
-dynamic memory management to not run out of memory during run-time. A possible side-effect
+behaviour, which is something that should be avoided in real-time environments. Especially on
+smaller systems, where the RAM might be limited to something like for example 1 MB, one has to be
+really careful with dynamic memory management to not run out of memory during run-time.
+
+A possible side-effect
 of running out of memory would be that the allocation can take a possibly infinite time. Another
 side-effect which is probably more common is that the allocation simply fails and a `nullptr` is
 returned, which causes the application to crash unless every allocation call is checked.
@@ -120,3 +133,14 @@ of the object, you can also add units to schedule by using their object ID.
 ## Hints
 
 - You can use `#include "fsfw/tasks/TaskFactory.h"` to include everything you need.
+
+## General note on global mutable objects
+
+Please note that the object manager is a software entity which global mutable state. This
+is something which can easily introduce subtle and dangerous bugs into a multi-threaded
+software. If you are sharing an object with the manager between multiple threads, all object
+access needs to be protected explicitely with concurrency tools like a Mutex by the developer.
+
+The object manager has no own capabilities to ensure thread-safey in such a case.
+It is recommended to do the `ws-ipc` workshop to get familiar with various ways for objects
+to communicate with each other in a thread-safe way.
