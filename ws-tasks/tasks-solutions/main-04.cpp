@@ -1,9 +1,14 @@
 #include <iostream>
 #include <thread>
 
+#include "fsfw/platform.h"
 #include "fsfw/tasks/ExecutableObjectIF.h"
 #include "fsfw/tasks/PeriodicTaskIF.h"
 #include "fsfw/tasks/TaskFactory.h"
+
+#ifdef PLATFORM_WIN
+#include "fsfw/osal/windows/winTaskHelpers.h"
+#endif
 
 using namespace std;
 
@@ -72,8 +77,13 @@ int main() {
     MyExecutableObject1 myExecutableObject1;
     MyExecutableObject2 myExecutableObject2;
     auto* factory = TaskFactory::instance();
-    auto* periodicTask0 = factory->createPeriodicTask("TASK_0", 0, PeriodicTaskIF::MINIMUM_STACK_SIZE, 0.5, nullptr);
-    auto* periodicTask1 = factory->createPeriodicTask("TASK_1", 0, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
+#ifdef PLATFORM_WIN
+    auto prio = tasks::makeWinPriority();
+#else
+    auto prio = 0;
+#endif
+    auto* periodicTask0 = factory->createPeriodicTask("TASK_0", prio, PeriodicTaskIF::MINIMUM_STACK_SIZE, 0.5, nullptr);
+    auto* periodicTask1 = factory->createPeriodicTask("TASK_1", prio, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
     periodicTask0->addComponent(&myExecutableObject0);
     periodicTask0->addComponent(&myExecutableObject1);
     periodicTask1->addComponent(&myExecutableObject2);

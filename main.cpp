@@ -1,42 +1,93 @@
-#include "fsfw/objectmanager.h"
-#include "fsfw/tasks/TaskFactory.h"
-#include <thread>
 #include <iostream>
-#include <iomanip>
+#include <thread>
+
+#include "fsfw/platform.h"
+#include "fsfw/tasks/ExecutableObjectIF.h"
+#include "fsfw/tasks/PeriodicTaskIF.h"
+#include "fsfw/tasks/TaskFactory.h"
+
+#ifdef PLATFORM_WIN
+#include "fsfw/osal/windows/winTaskHelpers.h"
+#endif
 
 using namespace std;
 
-enum ObjectIds {
-    TEST_OBJECT = 0x10101010
+class MyExecutableObjectIF {
+public:
+    virtual ~MyExecutableObjectIF() = default;
+    virtual void performOperation() = 0;
 };
 
-class MyObject: public ExecutableObjectIF, public SystemObject {
+class MyExecutableObject0: public ExecutableObjectIF {
 public:
-    MyObject(object_id_t objectId): SystemObject(objectId) {}
+    MyExecutableObject0() = default;
+
     ReturnValue_t performOperation(uint8_t opCode) override {
-        cout << "MyObject::performOperation: Periodic handling" << endl;
+        cout << "Task 0" << endl;
         return returnvalue::OK;
     }
-    ReturnValue_t initialize() override {
-        cout << "MyObject::initialize: Custom init" << endl;
+private:
+};
+
+class MyExecutableObject1: public ExecutableObjectIF  {
+public:
+    MyExecutableObject1() = default;
+
+    ReturnValue_t performOperation(uint8_t opCode) override {
+        cout << "Task 1" << endl;
         return returnvalue::OK;
     }
+private:
+};
+
+class MyExecutableObject2: public ExecutableObjectIF  {
+public:
+    MyExecutableObject2() = default;
+
+    ReturnValue_t performOperation(uint8_t opCode) override {
+        cout << "Task 2" << endl;
+        return returnvalue::OK;
+    }
+private:
+};
+
+class MyPeriodicTask {
+public:
+    MyPeriodicTask(MyExecutableObjectIF& executable, uint32_t taskFreqMs)
+        : executable(executable), taskFreqMs(taskFreqMs) {}
+
+    std::thread start() {
+        return std::thread(
+            MyPeriodicTask::executeTask,
+            std::reference_wrapper(*this));
+    }
+private:
+    static void executeTask(MyPeriodicTask& self) {
+        while(true) {
+            self.executable.performOperation();
+            this_thread::sleep_for(std::chrono::milliseconds(self.taskFreqMs));
+        }
+    }
+    MyExecutableObjectIF& executable;
+    uint32_t taskFreqMs;
 };
 
 int main() {
-    new MyObject(ObjectIds::TEST_OBJECT);
-    auto* objManager = ObjectManager::instance();
-    objManager->initialize();
-    auto* mySysObj = objManager->get<MyObject>(ObjectIds::TEST_OBJECT);
-    cout << "Object ID: " << setfill('0') << hex << "0x" << setw(8) <<
-        mySysObj->getObjectId() << endl;
-    auto* taskFactory = TaskFactory::instance();
-    PeriodicTaskIF* periodicTask = taskFactory->createPeriodicTask("TEST_TASK", 50, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
-    periodicTask->addComponent(ObjectIds::TEST_OBJECT);
-    periodicTask->startTask();
+    MyExecutableObject0 myExecutableObject0;
+    MyExecutableObject1 myExecutableObject1;
+    MyExecutableObject2 myExecutableObject2;
+    auto* factory = TaskFactory::instance();
+#ifdef PLATFORM_WIN
+
+#endif
+    auto* periodicTask0 = factory->createPeriodicTask("TASK_0", 0, PeriodicTaskIF::MINIMUM_STACK_SIZE, 0.5, nullptr);
+    auto* periodicTask1 = factory->createPeriodicTask("TASK_1", 0, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
+    periodicTask0->addComponent(&myExecutableObject0);
+    periodicTask0->addComponent(&myExecutableObject1);
+    periodicTask1->addComponent(&myExecutableObject2);
+    periodicTask0->startTask();
+    periodicTask1->startTask();
     while(true) {
-        using namespace std::chrono_literals;
         this_thread::sleep_for(5000ms);
     }
-    return 0;
 }

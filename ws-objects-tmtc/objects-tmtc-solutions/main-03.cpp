@@ -1,8 +1,13 @@
 #include "fsfw/objectmanager.h"
 #include "fsfw/tasks/TaskFactory.h"
+
 #include <thread>
 #include <iostream>
 #include <iomanip>
+
+#ifdef PLATFORM_WIN
+#include "fsfw/osal/windows/winTaskHelpers.h"
+#endif
 
 using namespace std;
 
@@ -31,7 +36,12 @@ int main() {
     cout << "Object ID: " << setfill('0') << hex << "0x" << setw(8) <<
         mySysObj->getObjectId() << endl;
     auto* taskFactory = TaskFactory::instance();
-    PeriodicTaskIF* periodicTask = taskFactory->createPeriodicTask("TEST_TASK", 50, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
+#ifdef PLATFORM_WIN
+    auto prio = tasks::makeWinPriority();
+#else
+    auto prio = 0;
+#endif
+    PeriodicTaskIF* periodicTask = taskFactory->createPeriodicTask("TEST_TASK", prio, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
     periodicTask->addComponent(ObjectIds::TEST_OBJECT);
     periodicTask->startTask();
     while(true) {
