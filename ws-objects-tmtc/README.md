@@ -11,6 +11,9 @@ The required interface of a class to be compatible to the object manager is the 
 The `SystemObject` class is a base class implementing this interface which is implemented
 by most base classes in the framework.
 
+It is recommended to do the task workshop located inside `ws-tasks` before doing this workshop,
+unless you are familiar with how task scheduling with the framework works.
+
 # 1. Creating a user `SystemObject`
 
 In this chapter, a custom class will be created which is insertable into the global object manager.
@@ -37,6 +40,7 @@ In this chapter, a custom class will be created which is insertable into the glo
 
 ## Hints
 
+ - You can use `#include "fsfw/objectmanager.h"` to include everything you need.
  - The `SystemObject` base class receives its object ID information by constructor argument.
    Every base (parent) class which does not have a default (empty) constructor needs to be
    initialized by the child class constructor. You can do this in the child class
@@ -90,16 +94,29 @@ be available to your project.
 
 The object ID is now an addressing unit which can be used at various places in the framework.
 One example is to schedule the object. This means that instead of passing the concrete instance
-of the object, you can also add units to schedule by using their object ID
+of the object, you can also add units to schedule by using their object ID.
 
 ## Subtasks
 
  1. Retrieve the global instance of the `TaskFactory` using its static `instance` method.
- 2. Create a new enum called `ObjectIds` and make your object ID an enum number
-    if it. If this is not the case already, refactor your `MySystemObject` to expect
-    the Object ID via constructor argument.
+ 2. Create a new enum called `ObjectIds` and make your object ID constant an enum number
+    if it. If this is not the case already the case, refactor your `MySystemObject` to expect
+    the Object ID via constructor argument and pass your enum member as the object ID.
  3. Add the `ExecutableObjectIF` to the list of implemented interface in `MySystemObject`
-    and rename it to `MyObject` to make it executable
- 3. Create a `PeriodicTask` and add your custom system object using its object ID
- 4. Schedule the object
- 
+    and rename it to `MyObject` to make it executable. Most IDEs have some functionality
+    to make renaming an object as convenient as possible.
+ 3. Create a `PeriodicTask` and add your custom system object using its object ID with the
+    `addComponent` method.
+ 4. Schedule the object. Do not forget to put the main thread to sleep, for example by using
+    code like this
+
+    ```cpp
+    while(true) {
+       using namespace std::chrono_literals;
+       this_thread::sleep_for(5000ms);
+    }
+    ```
+
+## Hints
+
+- You can use `#include "fsfw/tasks/TaskFactory.h"` to include everything you need.
