@@ -58,13 +58,14 @@ In general, it is recommended to start with the `ws-tasks` workshop and then mov
 ## Tasks workshop
 
 This chapter provides an introduction into the thread/tasks abstractions provided by the framework.
-The chapter descriptions and solutions are located inside `ws-tasks`.
+The chapter descriptions and solutions are located inside
+[`ws-tasks`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw-from-zero/src/branch/main/ws-tasks).
 
 ## Objects and Object Manager workshop
 
 This chapter will introduce the object manager and expand the knowledge of the tasks workshop
 by showing how to conveniently create global addressable objects. The chapter description and
-solutions are located inside `ws-objects`.
+solutions are located inside [`ws-objects`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw-from-zero/src/branch/main/ws-objects-tmtc).
 
 ## WIP: TMTC workshop
 
