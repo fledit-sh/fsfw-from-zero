@@ -98,4 +98,8 @@ of the object, you can also add units to schedule by using their object ID
  2. Create a new enum called `ObjectIds` and make your object ID an enum number
     if it. If this is not the case already, refactor your `MySystemObject` to expect
     the Object ID via constructor argument.
- 2. Create a `PeriodicTask` and add your custom system object using its object ID
+ 3. Add the `ExecutableObjectIF` to the list of implemented interface in `MySystemObject`
+    and rename it to `MyObject` to make it executable
+ 3. Create a `PeriodicTask` and add your custom system object using its object ID
+ 4. Schedule the object
+ 

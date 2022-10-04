@@ -9,6 +9,7 @@ public:
     MySystemObject(): SystemObject(0x10101010, false) {}
     ReturnValue_t initialize() override {
         cout << "MySystemObject::initialize: Custom init" << endl;
+        return returnvalue::OK;
     }
 };
 
