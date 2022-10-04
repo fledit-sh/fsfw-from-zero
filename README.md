@@ -65,7 +65,7 @@ The chapter descriptions and solutions are located inside
 
 This chapter will introduce the object manager and expand the knowledge of the tasks workshop
 by showing how to conveniently create global addressable objects. The chapter description and
-solutions are located inside [`ws-objects`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw-from-zero/src/branch/main/ws-objects-tmtc).
+solutions are located inside [`ws-objects`](https://egit.irs.uni-stuttgart.de/fsfw/fsfw-from-zero/src/branch/main/ws-objects).
 
 ## WIP: TMTC workshop
 
