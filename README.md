@@ -54,6 +54,7 @@ It is recommended to have a basic understanding of C++ basics and object-oriente
 in general before doing this workshop. There are various books and online resources available to
 learn this.
 
+All tasks are done in the `main.cpp` of this project and are located in subfolders.
 In general, it is recommended to start with the `ws-tasks` workshop and then move to the
 `ws-objects` workshop.
 
