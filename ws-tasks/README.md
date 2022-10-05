@@ -39,18 +39,20 @@ string every second: "Hello World".
 
 ## 2. Changing to the concept of executable objects
 
-The goal of this task is to convert the code from task 1 so the `std::thread` API takes an
-executable object by reference to move to a more object oriented task approach.
+The goal of this task is to convert the code from task 1 so the `std::thread` API receives an
+executable object to move to a more object oriented task approach.
 
 The printout of the thread should remain the same. The executable objects should be named
 `MyExecutableObject`. It contains one function called `periodicOperation` which performs the 
 printout, and a static function which takes the `MyExecutableObject` itself by reference and
 executes it in a permanent loop.
 
-The executable object should be passed into the `std::thread` directly.
+The executable object should be passed into the `std::thread` directly. There are
+two ways to do this.
 
 ### Hints
 
+ - [std::thread constructor](https://en.cppreference.com/w/cpp/thread/thread/thread)
  - [std::reference_wrapper](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper)
     to pass references to the [std::thread] API
  - [std::chrono::milliseconds](https://en.cppreference.com/w/cpp/chrono/duration) has a constructor
@@ -67,7 +69,10 @@ The executable object should be passed into the `std::thread` directly.
      calls. You can hardcode the delay to 1000ms for the first implementation.
   5. Change your `std::thread` calls in the main. You can pass the new `executeTask` function
      as the executable unit. The second argument should be an instance of the executable object
-     itself. You might need the `std::reference_wrapper` to pass it as a reference.
+     itself. You might need the `std::reference_wrapper` to pass it as a reference. You can also
+     use the approach used in
+     [thre thread ctor example (t5)](https://en.cppreference.com/w/cpp/thread/thread/thread)
+     and pass a regular member function and a pointer of the class
   6. Add a constructor to `MyExecutableObject` which expects a millisecond delay
      as an `uint32_t` and cache it as a member variable. Then use this member
      variable in the `executeTask` implementation to make the task frequency configurable via the
