@@ -29,3 +29,5 @@ if you are completely new to concurrency in C++.
 C++ does not really have an built-in message queue implementation.
 We are going to use a `std::queue` in conjunction with a `std::mutex` to
 have something similar to a message queue API.
+
+##
