@@ -16,6 +16,7 @@ or do not want to use a VM, consider using [Ubuntu WSL](https://ubuntu.com/wsl) 
 2. [`cmake`](https://cmake.org/) installed as the build system generator
 3. C++ compiler installed. On Windows, you can use [MinGW64](https://www.msys2.org/) or
    [clang](https://releases.llvm.org/download.html). On Unix, you can use the pre-installed GCC
+   but you might have to install `g++` or `build-essentials` explicitely.
 4. Build system for C/C++ installed. For Windows, it is recommended to use [ninja](https://ninja-build.org/).
    On Unix, you can use the pre-installed `make` tool.
 
