@@ -106,6 +106,10 @@ Interfaces in C++ are implemented using
 [abstract classes](https://en.cppreference.com/w/cpp/language/abstract_class) which only contains
 pure virtual functions.
 
+### Hint
+
+ - [Constructor and member initializer list](https://en.cppreference.com/w/cpp/language/constructor)
+
 ### Subtasks
 
  1. Create an interface called `MyExecutableObjectIF`. You can create this like a regular class.
@@ -122,7 +126,7 @@ pure virtual functions.
     virtual <functionName>(...) = 0;
     ```
 
- 4. Implement you custom interface for `MyExecutableObject` by re-using the exsiting
+ 4. Implement you custom interface for `MyExecutableObject` by re-using the existing
     `performOperation` function. In general, when implementing
     an interface or overriding a virtual function, it is recommended to add the `override` keyword
     to the function delaration. We do not have seperation between source and header files for
@@ -144,7 +148,7 @@ pure virtual functions.
     Its implementation is similar to the `executeTask` method of `MyExecutableObject`.
     Remove the `executeTask` implementation from `MyExecutableObject`.
  8. In the start method, use `std::thread` API with `MyPeriodicTask::executeTask` as the
-    executed function. Pass the task itself by reference similarly to how it was done in task 2.
+    executed function. Pass the task itself similarly to how it was done in task 2.
     Return the created thread directly, so callers can use the `join` method to block on thread
     completion.
 
