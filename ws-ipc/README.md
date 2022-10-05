@@ -23,3 +23,9 @@ if you are completely new to concurrency in C++.
    is protected by a [`std::mutex`](https://en.cppreference.com/w/cpp/thread/mutex).
    You can also use the [`std::lock_guard`](https://en.cppreference.com/w/cpp/thread/lock_guard)
    which is a [RAII-style](https://en.cppreference.com/w/cpp/language/raii) helper object.
+
+# 2. Using messages
+
+C++ does not really have an built-in message queue implementation.
+We are going to use a `std::queue` in conjunction with a `std::mutex` to
+have something similar to a message queue API.
