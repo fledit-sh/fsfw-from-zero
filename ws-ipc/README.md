@@ -15,3 +15,7 @@ if you are completely new to concurrency in C++.
 # 1. Sharing state between two threads
 
 ## Subtasks
+
+1. Create two threads which run some tasks with a period of 50ms using the
+   [`std::thread`](https://en.cppreference.com/w/cpp/thread/thread) API
+2. Introduce a static global `uint32_t` variable called `SHARED_VARIABLE`

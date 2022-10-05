@@ -26,6 +26,7 @@ the [Flight Software Framework](https://egit.irs.uni-stuttgart.de/fsfw):
 
 ```sh
 git clone https://egit.irs.uni-stuttgart.de/fsfw/fsfw-from-zero.git
+cd fsfw-from-zero
 git submodule init
 git submodule update
 ```
