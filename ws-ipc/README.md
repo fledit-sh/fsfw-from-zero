@@ -1,7 +1,7 @@
 # Inter-Process Communication (IPC) with the FSFW
 
 IPC is a necessary tool to let software entities communicate with each other. In general, for
-any Software, there are two primary ways for software entities to communicated with each other:
+any Software, there are two primary ways for software entities to communicate with each other:
 
  1. Shared Memory. If memory is shared between threads or tasks, memory access needs to be protected
     with a lock, also commonly called Mutex.
@@ -19,3 +19,7 @@ if you are completely new to concurrency in C++.
 1. Create two threads which run some tasks with a period of 50ms using the
    [`std::thread`](https://en.cppreference.com/w/cpp/thread/thread) API
 2. Introduce a static global `uint32_t` variable called `SHARED_VARIABLE`
+3. Increment the variable in both threads, but ensure that the access
+   is protected by a [`std::mutex`](https://en.cppreference.com/w/cpp/thread/mutex).
+   You can also use the [`std::lock_guard`](https://en.cppreference.com/w/cpp/thread/lock_guard)
+   which is a [RAII-style](https://en.cppreference.com/w/cpp/language/raii) helper object.

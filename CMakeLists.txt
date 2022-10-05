@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22.0)
+cmake_minimum_required(VERSION 3.16.0)
 # We can version our project using CMake
 project(fsfw-from-zero VERSION 0.1.0)
 
