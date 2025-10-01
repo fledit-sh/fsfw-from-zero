@@ -81,12 +81,13 @@ void ObjectFactory::createMissionObjects() {
         webcamComIF = std::make_unique<WebcamComIF>(
             webcam::objectIdWebcamComIF);
     }
-    if (webcamCookie == nullptr) {
+    if (webcamCookie == nullptr && webcamHandler == nullptr) {
         webcamCookie = std::make_unique<WebcamCookie>("/dev/video0", 30.0);
     }
-    if (webcamHandler == nullptr) {
+    if (webcamHandler == nullptr && webcamCookie != nullptr) {
         webcamHandler = std::make_unique<WebcamDeviceHandler>(
-        webcam::objectIdWebcamHandler, webcam::objectIdWebcamComIF, webcamCookie.get(), nullptr, 20);
+        webcam::objectIdWebcamHandler, webcam::objectIdWebcamComIF,
+        webcamCookie.release(), nullptr, 20);
     }
     if (webcamService == nullptr) {
         if (verificationReporter != nullptr) {
