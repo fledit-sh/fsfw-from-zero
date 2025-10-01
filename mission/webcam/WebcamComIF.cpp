@@ -5,21 +5,21 @@
 
 #include <fsfw/returnvalues/returnvalue.h>
 
-DummyWebcamComIF::DummyWebcamComIF(object_id_t objectId) : SystemObject(objectId) {}
+WebcamComIF::WebcamComIF(object_id_t objectId) : SystemObject(objectId) {}
 
-ReturnValue_t DummyWebcamComIF::initializeInterface(CookieIF *) { return returnvalue::OK; }
+ReturnValue_t WebcamComIF::initializeInterface(CookieIF *) { return returnvalue::OK; }
 
-ReturnValue_t DummyWebcamComIF::sendMessage(CookieIF *, const uint8_t *, size_t) {
+ReturnValue_t WebcamComIF::sendMessage(CookieIF *, const uint8_t *, size_t) {
     return returnvalue::OK;
 }
 
-ReturnValue_t DummyWebcamComIF::getSendSuccess(CookieIF *) { return returnvalue::OK; }
+ReturnValue_t WebcamComIF::getSendSuccess(CookieIF *) { return returnvalue::OK; }
 
-ReturnValue_t DummyWebcamComIF::requestReceiveMessage(CookieIF *, size_t) {
+ReturnValue_t WebcamComIF::requestReceiveMessage(CookieIF *, size_t) {
     return returnvalue::OK;
 }
 
-ReturnValue_t DummyWebcamComIF::readReceivedMessage(CookieIF *, uint8_t **buffer,
+ReturnValue_t WebcamComIF::readReceivedMessage(CookieIF *, uint8_t **buffer,
                                                     size_t *size) {
     if (buffer != nullptr) {
         *buffer = nullptr;
@@ -30,5 +30,5 @@ ReturnValue_t DummyWebcamComIF::readReceivedMessage(CookieIF *, uint8_t **buffer
     return returnvalue::OK;
 }
 
-ReturnValue_t DummyWebcamComIF::getReceiveSuccess(CookieIF *) { return returnvalue::OK; }
+ReturnValue_t WebcamComIF::getReceiveSuccess(CookieIF *) { return returnvalue::OK; }
 #include "WebcamComIF.h"

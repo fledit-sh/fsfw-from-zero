@@ -57,7 +57,9 @@ ReturnValue_t WebcamDeviceHandler::buildNormalDeviceCommand(DeviceCommandId_t *d
   if (deviceCommand == nullptr) {
     return returnvalue::FAILED;
   }
-
+  if (getComIF() == nullptr) {
+    return returnvalue::FAILED;
+  }
   if (snapshotRequested) {
     snapshotRequested = false;
     snapshotInProgress = true;
@@ -242,6 +244,13 @@ ReturnValue_t WebcamDeviceHandler::buildCommandFromCommand(DeviceCommandId_t dev
 }
 
 void WebcamDeviceHandler::prepareReply(DeviceCommandId_t commandId) {
+  if (getComIF() == nullptr) {
+    fabricatedReplyId = DeviceHandlerIF::NO_COMMAND_ID;
+    replyReady = false;
+    rawPacket = nullptr;
+    rawPacketLen = 0;
+    return;
+  }
   fabricatedReplyId = commandId;
   replyReady = true;
   rawPacket = dummyCommandBuffer.data();

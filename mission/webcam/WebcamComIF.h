@@ -5,9 +5,9 @@
 #include <fsfw/devicehandlers/DeviceCommunicationIF.h>
 #include <fsfw/objectmanager/SystemObject.h>
 
-class DummyWebcamComIF : public DeviceCommunicationIF, public SystemObject {
+class WebcamComIF : public DeviceCommunicationIF, public SystemObject {
 public:
-    explicit DummyWebcamComIF(object_id_t objectId);
+    explicit WebcamComIF(object_id_t objectId);
 
     ReturnValue_t initializeInterface(CookieIF *cookie) override;
     ReturnValue_t sendMessage(CookieIF *cookie, const uint8_t *sendData,
