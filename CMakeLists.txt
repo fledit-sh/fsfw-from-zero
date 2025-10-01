@@ -31,11 +31,13 @@ endif()
 # https://www.youtube.com/watch?v=DMoCM_FgLP8&t=3s
 add_executable(fsfw-from-zero
         main.cpp
+        mission/ObjectFactory.cpp
         mission/WebcamDeviceHandler.cpp
         mission/webcam/WebcamCookie.cpp
         mission/webcam/WebcamDefinitions.cpp
         mission/messaging/SystemMessage.cpp
         mission/messaging/MessageTypes.cpp
+
 )
 add_executable(webcam_test test/webcam.cpp)
 #add_executable(webcam_fsfw mission/WebcamDeviceHandler.cpp)

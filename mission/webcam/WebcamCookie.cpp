@@ -7,8 +7,9 @@
 #include <utility>
 
 WebcamCookie::WebcamCookie(std::string devicePath, double initialFrameRate)
-    : devicePath(std::move(devicePath)), initialFrameRate(initialFrameRate) {}
-
+: SystemObject(webcam::objectIdWebcamCookie),
+  devicePath(std::move(devicePath)),
+  initialFrameRate(initialFrameRate) {}
 const std::string &WebcamCookie::getDevicePath() const { return devicePath; }
 
 double WebcamCookie::getInitialFrameRate() const { return initialFrameRate; }

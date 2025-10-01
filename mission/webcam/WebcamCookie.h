@@ -4,10 +4,12 @@
 #pragma once
 
 #include <fsfw/devicehandlers/CookieIF.h>
+#include <fsfw/objectmanager/SystemObject.h>
+#include "WebcamDefinitions.h"
 
 #include <string>
 
-class WebcamCookie : public CookieIF {
+class WebcamCookie : public CookieIF, public SystemObject {
 public:
     WebcamCookie(std::string devicePath, double initialFrameRate);
 

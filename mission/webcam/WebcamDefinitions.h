@@ -30,6 +30,8 @@ namespace webcam {
     const char *parameterIdToString(ParameterId parameter);
 
     inline constexpr object_id_t objectIdWebcamHandler = static_cast<object_id_t>(0x57000001);
+    inline constexpr object_id_t objectIdWebcamCookie = static_cast<object_id_t>(0x57000002);
+
 
 }  // namespace webcam
 #endif //FSFW_FROM_ZERO_WEBCAMDEFINITIONS_H

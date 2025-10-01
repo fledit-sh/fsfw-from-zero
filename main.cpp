@@ -3,11 +3,10 @@
 #include "fsfw/tasks/TaskFactory.h"
 
 #include "mission/WebcamDeviceHandler.h"
-#include "mission/webcam/WebcamCookie.h"
+#include "mission/ObjectFactory.h"
 #include "mission/webcam/WebcamDefinitions.h"
 
 #include <chrono>
-#include <memory>
 #include <thread>
 
 using namespace std;
@@ -16,12 +15,12 @@ using namespace std;
 // C++ program begins
 int main() {
     auto* objectManager = ObjectManager::instance();
-    auto webcamCookie = std::make_unique<WebcamCookie>("/dev/video0", 30.0);
-    auto* webcamHandler = new WebcamDeviceHandler(
-        webcam::objectIdWebcamHandler, 0, webcamCookie.get(), nullptr, 20);
-    (void)webcamHandler;
-
+    ObjectFactory::createMissionObjects();
     objectManager->initialize();
+
+    auto* webcamHandler = objectManager->get<WebcamDeviceHandler>(
+        webcam::objectIdWebcamHandler);
+    (void)webcamHandler;
 
     auto* taskFactory = TaskFactory::instance();
     auto priority = 0;
