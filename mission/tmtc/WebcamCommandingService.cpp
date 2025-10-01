@@ -41,13 +41,14 @@ WebcamCommandingService::WebcamCommandingService(object_id_t objectId, Verificat
 ReturnValue_t WebcamCommandingService::initialize() {
   ReturnValue_t result = CommandingServiceBase::initialize();
   if (result != returnvalue::OK) {
-    sif::error << "WebcamCommandingService::initialize: Base initialization failed with code " << result
-               << std::endl;
+    sif::printError(
+        "WebcamCommandingService::initialize: Base initialization failed with code %u\n",
+        static_cast<unsigned int>(result));
     return result;
   }
 
   if (ipcStore == nullptr) {
-    sif::error << "WebcamCommandingService::initialize: IPC store unavailable" << std::endl;
+    sif::printError("WebcamCommandingService::initialize: IPC store unavailable\n");
     return returnvalue::FAILED;
   }
 
@@ -147,7 +148,7 @@ ReturnValue_t WebcamCommandingService::prepareDeviceCommand(CommandMessage* mess
       return CommandingServiceBase::INVALID_TC;
   }
   if (ipcStore == nullptr) {
-    sif::error << "WebcamCommandingService::prepareDeviceCommand: IPC store unavailable" << std::endl;
+    sif::printError("WebcamCommandingService::prepareDeviceCommand: IPC store unavailable\n");
     return returnvalue::FAILED;
   }
   store_address_t storeId;
@@ -197,7 +198,7 @@ ReturnValue_t WebcamCommandingService::handleActionReply(const CommandMessage* r
       const uint8_t* data = nullptr;
       size_t size = 0;
       if (ipcStore == nullptr) {
-        sif::error << "WebcamCommandingService::handleActionReply: IPC store unavailable" << std::endl;
+        sif::printError("WebcamCommandingService::handleActionReply: IPC store unavailable\n");
         return returnvalue::FAILED;
       }
       ReturnValue_t result = ipcStore->getData(storeId, &data, &size);
@@ -228,7 +229,7 @@ ReturnValue_t WebcamCommandingService::handleParameterReply(const CommandMessage
   const uint8_t* data = nullptr;
   size_t size = 0;
   if (ipcStore == nullptr) {
-    sif::error << "WebcamCommandingService::handleParameterReply: IPC store unavailable" << std::endl;
+    sif::printError("WebcamCommandingService::handleParameterReply: IPC store unavailable\n");
     return returnvalue::FAILED;
   }
   ReturnValue_t result = ipcStore->getData(storeId, &data, &size);
