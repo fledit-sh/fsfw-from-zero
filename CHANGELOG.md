@@ -12,6 +12,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 - WebcamDeviceHandler stubs
 - Cookie stubs and definitions
 - Webcam hardware works now. Isolated the code by functionality for implementation in devicehandler
+- Added scheduled objects and ObjectFactory
 
 ### Changed
 - Nothing. Removed all the relevant files from the build process so i dont get any errors.

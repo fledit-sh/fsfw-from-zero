@@ -20,3 +20,5 @@ Introduced scaffolding and somehow made it work. Oriented on the ThermalDeviceHa
 
 4. Its very important to override **ALL** the methods. Otherwise the baseclass stays virtual.
 5. Encountered some problems with commandmessagecleaner. 
+6. ERROR | 13:12:56.641 | DeviceHandlerBase::initialize: Object ID 0x57000001 | Passed communication IF invalid
+7. Tried to schedule the DeviceHandler... Still not working properly
