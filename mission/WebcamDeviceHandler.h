@@ -4,8 +4,10 @@
 #include <fsfw/devicehandlers/CookieIF.h>
 #include <fsfw/parameters/ParameterWrapper.h>
 #include <fsfw/returnvalues/returnvalue.h>
-#include <cstdint>
+#include <array>
 #include <cstddef>
+#include <cstdint>
+
 /*
  * Deriviving the DeviceHandlerBase
  */
@@ -20,10 +22,21 @@ public:
     void doStartUp() override; //TODO: implement HW startup logic like getting the webcamhanlder
     void doShutDown() override; //TODO: implement HW shutdown logic like releasing the webcamhandler
 protected:
-    ReturnValue_t buildTransitionDeviceCommand(DeviceCommandId_t deviceCommand) override; //
-    ReturnValue_t buildNormalDeviceCommand(DeviceCommandId_t deviceCommand) override; //
-    void fillCommandAndReplyMap() override;  //
-    ReturnValue_t scanForReply(const uint8_t *data, size_t len, DeviceCommandId_t *foundId, size_t *foundLen) override; //
-    ReturnValue_t interpretDeviceReply(DeviceCommandId_t id, const uint8_t *packet) override; //
+    ReturnValue_t buildTransitionDeviceCommand(DeviceCommandId_t *deviceCommand) override;
+    ReturnValue_t buildNormalDeviceCommand(DeviceCommandId_t *deviceCommand) override;
+    void fillCommandAndReplyMap() override;
+    ReturnValue_t scanForReply(const uint8_t *data, size_t len, DeviceCommandId_t *foundId, size_t *foundLen) override;
+    ReturnValue_t interpretDeviceReply(DeviceCommandId_t id, const uint8_t *packet) override;
     ReturnValue_t getParameter(uint8_t domainId, uint8_t parameterId, ParameterWrapper *parameterWrapper, const ParameterWrapper *newValues, uint16_t startAtIndex) override;
+    ReturnValue_t buildCommandFromCommand(DeviceCommandId_t deviceCommand, const uint8_t *commandData, size_t commandDataLen) override;
+private:
+    void prepareReply(DeviceCommandId_t commandId);
+    bool devicePowered = false;
+    bool transitionCommandPending = false;
+    bool frameRateCommandPending = false;
+    bool frameRateQueryPending = false;
+    bool snapshotInProgress = false;
+    bool replyReady = false;
+    DeviceCommandId_t fabricatedReplyId = DeviceHandlerIF::NO_COMMAND_ID;
+    std::array<uint8_t, 1> dummyCommandBuffer{};
 };

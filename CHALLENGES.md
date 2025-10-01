@@ -18,4 +18,3 @@ sudo pacman -S --needed gcc make cmake pkgconf opencv v4l-utils
 
 3. Deriving the DeviceHandlerBase as a WebcamHandler. Requires a lot of fiddling, but the dependencies of the fsfw make quite clear what you need and provide sufficient documentation.
 Introduced scaffolding and somehow made it work. Oriented on the ThermalDeviceHandler from sourceobsw
-

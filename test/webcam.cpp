@@ -12,6 +12,12 @@
 #include <algorithm>
 #include <cstdint>
 
+/*
+ * GPT5: AI generated.
+ * Required multiple prompts, but starting from a helloworld example for controlling a webcam in linux. Will be used for implementation in the devicehandler.
+ * Isolated different functions for easy implementation.
+ */
+
 struct Buffer {
     void*  start = nullptr;
     size_t length = 0;
