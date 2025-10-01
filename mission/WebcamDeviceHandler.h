@@ -30,6 +30,7 @@ protected:
     ReturnValue_t interpretDeviceReply(DeviceCommandId_t id, const uint8_t *packet) override;
     ReturnValue_t getParameter(uint8_t domainId, uint8_t parameterId, ParameterWrapper *parameterWrapper, const ParameterWrapper *newValues, uint16_t startAtIndex) override;
     ReturnValue_t buildCommandFromCommand(DeviceCommandId_t deviceCommand, const uint8_t *commandData, size_t commandDataLen) override;
+    ReturnValue_t letChildHandleMessage(CommandMessage *message) override;
 private:
     void prepareReply(DeviceCommandId_t commandId);
     bool devicePowered = false;

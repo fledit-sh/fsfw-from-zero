@@ -1,10 +1,12 @@
 #include "WebcamDeviceHandler.h"
 
 #include <fsfw/devicehandlers/DeviceCommunicationIF.h>
-#include "webcam/WebcamDefinitions.h"
+#include <fsfw/action/ActionMessage.h>
+#include <fsfw/ipc/CommandMessage.h>
 #include <fsfw/retval.h>
 #include <fsfw/serviceinterface/ServiceInterface.h>
-
+#include "mission/messaging/MessageTypes.h"
+#include "webcam/WebcamDefinitions.h"
 #include <cstring>
 #include <iomanip>
 
@@ -217,6 +219,31 @@ ReturnValue_t WebcamDeviceHandler::getParameter(uint8_t domainId, uint8_t parame
   return DeviceHandlerBase::getParameter(domainId, parameterId, parameterWrapper, newValues,
                                          startAtIndex);
 }
+
+ReturnValue_t WebcamDeviceHandler::letChildHandleMessage(CommandMessage *message) {
+  if (message == nullptr) {
+    return returnvalue::FAILED;
+  }
+  if (message->getMessageType() != messagetypes::DEVICE_HANDLER_COMMAND) {
+    return DeviceHandlerBase::letChildHandleMessage(message);
+  }
+
+  const uint8_t rawCommand = static_cast<uint8_t>(message->getCommand() & 0xff);
+  ::webcam::CommandId command;
+  if (!messagetypes::mission::webcam::rawToCommand(rawCommand, command)) {
+    replyReturnvalueToCommand(CommandMessage::UNKNOWN_COMMAND);
+    return returnvalue::OK;
+  }
+
+  store_address_t storeId(message->getParameter());
+  ActionMessage::setCommand(message, static_cast<ActionId_t>(rawCommand), storeId);
+  ReturnValue_t result = actionHelper.handleActionMessage(message);
+  if (result != returnvalue::OK) {
+    replyReturnvalueToCommand(result);
+  }
+  return returnvalue::OK;
+}
+
 ReturnValue_t WebcamDeviceHandler::buildCommandFromCommand(DeviceCommandId_t deviceCommand,
                                                           const uint8_t *commandData,
                                                           size_t commandDataLen) {
