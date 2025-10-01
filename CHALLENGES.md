@@ -24,3 +24,6 @@ Introduced scaffolding and somehow made it work. Oriented on the ThermalDeviceHa
 7. Tried to schedule the DeviceHandler... Still not working properly
 8. Stupid, forgot the ComIF.
 9. ALWAYS remember to include files in the cmakelists.txt. Nothing works automatically
+10. Endianness plays an important role between windows and linux.
+11. Fixing endianness
+12. 

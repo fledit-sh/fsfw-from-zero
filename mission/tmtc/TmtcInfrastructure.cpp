@@ -147,7 +147,7 @@ ReturnValue_t StubPusDistributor::sendCommand(uint8_t subservice, const uint8_t*
   }
   uint8_t* writePtr = storePtr;
   size_t size = 0;
-  result = creator.serialize(&writePtr, &size, serializedSize, SerializeIF::Endianness::BIG);
+  result = creator.serializeBe(&writePtr, &size, serializedSize);
   if (result != returnvalue::OK) {
     tcStore->deleteData(storeId);
     return result;
