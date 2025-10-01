@@ -1,0 +1,13 @@
+//
+// Created by noel on 01.10.25.
+//
+
+#ifndef FSFW_FROM_ZERO_WEBCAMCOMMANDINGSERVICE_H
+#define FSFW_FROM_ZERO_WEBCAMCOMMANDINGSERVICE_H
+
+
+class WebcamCommandingService {
+};
+
+
+#endif //FSFW_FROM_ZERO_WEBCAMCOMMANDINGSERVICE_H
