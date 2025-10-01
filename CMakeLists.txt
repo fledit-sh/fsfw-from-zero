@@ -30,6 +30,7 @@ endif()
 # Add our executable and its only source file
 add_executable(fsfw-from-zero main.cpp)
 add_executable(webcam_test test/webcam.cpp)
+#add_executable(webcam_fsfw mission/WebcamDeviceHandler.cpp)
 
 # Link the framework so we can use it from our application
 target_link_libraries(fsfw-from-zero PRIVATE fsfw)
