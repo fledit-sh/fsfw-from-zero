@@ -1,5 +1,4 @@
 // Necessary header files for input output functions
-#include <iostream>
 #include "fsfw/objectmanager.h"
 #include "fsfw/tasks/TaskFactory.h"
 
@@ -10,6 +9,7 @@
 #include <chrono>
 #include <memory>
 #include <thread>
+
 using namespace std;
 
 // main() function: where the execution of
