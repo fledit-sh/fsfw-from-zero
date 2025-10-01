@@ -1,8 +1,8 @@
 #include "WebcamDeviceHandler.h"
 
 #include <fsfw/devicehandlers/DeviceCommunicationIF.h>
-#include <fsfw/returnvalues/HasReturnvaluesIF.h>
 #include "webcam/WebcamDefinitions.h"
+#include <fsfw/retval.h>
 #include <fsfw/serviceinterface/ServiceInterface.h>
 
 #include <cstring>
@@ -63,7 +63,7 @@ ReturnValue_t WebcamDeviceHandler::buildNormalDeviceCommand(DeviceCommandId_t *d
     snapshotInProgress = true;
     *deviceCommand = static_cast<DeviceCommandId_t>(webcam::CommandId::commandTakeSnapshot);
     prepareReply(*deviceCommand);
-    return HasReturnvaluesIF::RETURN_OK;
+    return returnvalue::OK;
   }
 
   if (frameRateCommandPending) {
@@ -72,7 +72,7 @@ ReturnValue_t WebcamDeviceHandler::buildNormalDeviceCommand(DeviceCommandId_t *d
     currentFrameRate = requestedFrameRate;
     *deviceCommand = static_cast<DeviceCommandId_t>(webcam::CommandId::commandSetFrameRate);
     prepareReply(*deviceCommand);
-    return HasReturnvaluesIF::RETURN_OK;
+    return returnvalue::OK;
   }
 
   if (frameRateQueryPending) {
@@ -80,7 +80,7 @@ ReturnValue_t WebcamDeviceHandler::buildNormalDeviceCommand(DeviceCommandId_t *d
     snapshotInProgress = false;
     *deviceCommand = static_cast<DeviceCommandId_t>(webcam::CommandId::commandGetFrameRate);
     prepareReply(*deviceCommand);
-    return HasReturnvaluesIF::RETURN_OK;
+    return returnvalue::OK;
   }
 
   return DeviceHandlerBase::NOTHING_TO_SEND;

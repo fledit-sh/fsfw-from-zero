@@ -19,4 +19,4 @@ sudo pacman -S --needed gcc make cmake pkgconf opencv v4l-utils
 Introduced scaffolding and somehow made it work. Oriented on the ThermalDeviceHandler from sourceobsw
 
 4. Its very important to override **ALL** the methods. Otherwise the baseclass stays virtual.
-5. 
+5. Encountered some problems with commandmessagecleaner. 
