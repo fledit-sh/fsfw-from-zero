@@ -27,7 +27,8 @@ else()
 endif()
 
 
-# Add our executable and its source file
+# Add OUR executable and its source file.
+# https://www.youtube.com/watch?v=DMoCM_FgLP8&t=3s
 add_executable(fsfw-from-zero
         main.cpp
         mission/WebcamDeviceHandler.cpp
