@@ -3,6 +3,10 @@
 #include <fsfw/devicehandlers/DeviceCommunicationIF.h>
 #include <fsfw/returnvalues/HasReturnvaluesIF.h>
 
+/*
+ * Trivial hacking: remove from cmake.txt to prevent failures!
+ */
+
 namespace {
   constexpr uint8_t STREAMING_ENABLED_REPLY_FLAG = 1;
   constexpr uint8_t STREAMING_DISABLED_REPLY_FLAG = 0;
@@ -11,9 +15,9 @@ namespace {
 WebcamDeviceHandler::WebcamDeviceHandler(object_id_t objectId, object_id_t deviceCommunication,
                                          CookieIF *comCookie, FailureIsolationBase *fdirInstance,
                                          size_t cmdQueueSize)
-    : DeviceHandlerBase(objectId, deviceCommunication, comCookie, fdirInstance, cmdQueueSize) {
   // TODO: implement communication object IDs cookie instance and FDIR once handler is scheduled.
-}
+: DeviceHandlerBase(objectId, deviceCommunication, comCookie, fdirInstance, cmdQueueSize),
+      currentFrameRate(0.0), requestedFrameRate(0.0), snapshotRequested(false) {}
 
 void WebcamDeviceHandler::doStartUp() {
   // This is called do transition to MODE_ON

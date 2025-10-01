@@ -14,6 +14,9 @@ public:
     WebcamDeviceHandler(object_id_t objectId, object_id_t deviceCommunication = 0,
                     CookieIF *comCookie = nullptr, FailureIsolationBase *fdirInstance = nullptr,
                     size_t cmdQueueSize = 20);
+    double currentFrameRate = 0.0;   // latest reported framerate
+    double requestedFrameRate = 0.0; // framerate to set ie from tmtc
+    bool snapshotRequested = false;  //
     void doStartUp() override; //TODO: implement HW startup logic like getting the webcamhanlder
     void doShutDown() override; //TODO: implement HW shutdown logic like releasing the webcamhandler
 protected:
