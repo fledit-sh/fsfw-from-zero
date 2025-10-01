@@ -73,8 +73,13 @@ void ObjectFactory::createMissionObjects() {
         webcam::objectIdWebcamHandler, webcam::objectIdWebcamComIF, webcamCookie.get(), nullptr, 20);
     }
     if (webcamService == nullptr) {
-        webcamService = std::make_unique<webcam::WebcamCommandingService>(
-            webcam::objectIdWebcamCommandingService);
+        if (verificationReporter != nullptr) {
+            webcamService = std::make_unique<webcam::WebcamCommandingService>(
+                webcam::objectIdWebcamCommandingService, verificationReporter.get());
+        } else {
+            webcamService = std::make_unique<webcam::WebcamCommandingService>(
+                webcam::objectIdWebcamCommandingService);
+        }
         webcamService->setPacketSource(webcam::objectIdWebcamTcDistributor);
         webcamService->setPacketDestination(webcam::objectIdWebcamTelemetrySink);
     }

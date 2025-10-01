@@ -85,7 +85,9 @@ StubVerificationReceiver::~StubVerificationReceiver() {
 }
 
 ReturnValue_t StubVerificationReceiver::initialize() {
-  queue = QueueFactory::instance()->createMessageQueue(QUEUE_DEPTH, MessageQueueMessage::MAX_MESSAGE_SIZE);
+  if (queue == nullptr) {
+    queue = QueueFactory::instance()->createMessageQueue(QUEUE_DEPTH, MessageQueueMessage::MAX_MESSAGE_SIZE);
+  }
   return SystemObject::initialize();
 }
 
@@ -102,6 +104,9 @@ ReturnValue_t StubVerificationReceiver::performOperation(uint8_t) {
 }
 
 MessageQueueId_t StubVerificationReceiver::getVerificationQueue() {
+  if (queue == nullptr) {
+    queue = QueueFactory::instance()->createMessageQueue(QUEUE_DEPTH, MessageQueueMessage::MAX_MESSAGE_SIZE);
+  }
   if (queue == nullptr) {
     return MessageQueueIF::NO_QUEUE;
   }
