@@ -167,8 +167,6 @@ ReturnValue_t WebcamDeviceHandler::getParameter(uint8_t domainId, uint8_t parame
                                                 ParameterWrapper *parameterWrapper,
                                                 const ParameterWrapper *newValues,
                                                 uint16_t startAtIndex) {
-
-  return returnvalue::OK;
   using webcam::ParameterId;
 
   if (domainId != 0) {
@@ -181,17 +179,36 @@ ReturnValue_t WebcamDeviceHandler::getParameter(uint8_t domainId, uint8_t parame
       if (parameterWrapper == nullptr) {
         return returnvalue::FAILED;
       }
+      if (startAtIndex != 0) {
+        return returnvalue::FAILED;
+      }
+#if FSFW_CPP_OSTREAM_ENABLED == 1
+      sif::info << "[Webcam] Parameter read: frame rate " << std::fixed << std::setprecision(2)
+                << currentFrameRate << " fps." << std::defaultfloat << std::endl;
+#else
+      sif::printInfo("[Webcam] Parameter read: frame rate %.2f fps.\n", currentFrameRate);
+#endif
       parameterWrapper->set(currentFrameRate);
       return returnvalue::OK;
     }
 
     double newFrameRate = currentFrameRate;
+    if (startAtIndex != 0) {
+      return returnvalue::FAILED;
+    }
     ReturnValue_t result = newValues->getElement(&newFrameRate);
     if (result != returnvalue::OK) {
       return result;
     }
     requestedFrameRate = newFrameRate;
-    currentFrameRate = newFrameRate;
+#if FSFW_CPP_OSTREAM_ENABLED == 1
+    sif::info << "[Webcam] Parameter write: requested frame rate " << std::fixed
+              << std::setprecision(2) << requestedFrameRate << " fps." << std::defaultfloat
+              << std::endl;
+#else
+    sif::printInfo("[Webcam] Parameter write: requested frame rate %.2f fps.\n",
+                   requestedFrameRate);
+#endif
     return returnvalue::OK;
   }
 
