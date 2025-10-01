@@ -5,7 +5,7 @@
 #include <fsfw/storagemanager/LocalPool.h>
 #include <fsfw/timemanager/CdsShortTimeStamper.h>
 #include <fsfw/tmtcservices/VerificationReporter.h>
-#include "mission/WebcamDeviceHandler.h"
+#include "webcam/WebcamDeviceHandler.h"
 #include "mission/tmtc/TmtcInfrastructure.h"
 #include "mission/tmtc/WebcamCommandingService.h"
 #include "mission/webcam/WebcamComIF.h"
@@ -70,7 +70,7 @@ void ObjectFactory::createMissionObjects() {
     }
     if (webcamHandler == nullptr) {
         webcamHandler = std::make_unique<WebcamDeviceHandler>(
-        webcam::objectIdWebcamHandler, webcam::objectIdDummyWebcamComIF,  webcamCookie.get(), nullptr, 20);
+        webcam::objectIdWebcamHandler, webcam::objectIdWebcamComIF, webcamCookie.get(), nullptr, 20);
     }
     if (webcamService == nullptr) {
         webcamService = std::make_unique<webcam::WebcamCommandingService>(

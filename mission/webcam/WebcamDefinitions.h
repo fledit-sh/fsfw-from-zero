@@ -31,7 +31,7 @@ namespace webcam {
 
     inline constexpr object_id_t objectIdWebcamHandler = static_cast<object_id_t>(0x57000001);
     inline constexpr object_id_t objectIdWebcamCookie = static_cast<object_id_t>(0x57000002);
-    inline constexpr object_id_t objectIdDummyWebcamComIF = static_cast<object_id_t>(0x57000003);
+    inline constexpr object_id_t objectIdWebcamComIF = static_cast<object_id_t>(0x57000003);
     inline constexpr object_id_t objectIdWebcamCommandingService = static_cast<object_id_t>(0x57000010);
     inline constexpr object_id_t objectIdWebcamTcDistributor = static_cast<object_id_t>(0x57000011);
     inline constexpr object_id_t objectIdWebcamTelemetrySink = static_cast<object_id_t>(0x57000012);

@@ -30,5 +30,4 @@ ReturnValue_t WebcamComIF::readReceivedMessage(CookieIF *, uint8_t **buffer,
     return returnvalue::OK;
 }
 
-ReturnValue_t WebcamComIF::getReceiveSuccess(CookieIF *) { return returnvalue::OK; }
 #include "WebcamComIF.h"

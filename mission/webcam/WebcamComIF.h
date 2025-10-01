@@ -16,5 +16,4 @@ public:
     ReturnValue_t requestReceiveMessage(CookieIF *cookie, size_t requestLen) override;
     ReturnValue_t readReceivedMessage(CookieIF *cookie, uint8_t **buffer,
                                       size_t *size) override;
-    ReturnValue_t getReceiveSuccess(CookieIF *cookie) override;
 };

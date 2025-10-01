@@ -3,7 +3,7 @@
 #include "fsfw/tasks/TaskFactory.h"
 
 #include "mission/ObjectFactory.h"
-#include "mission/WebcamDeviceHandler.h"
+#include "mission/webcam/WebcamDeviceHandler.h"
 #include "mission/tmtc/TmtcInfrastructure.h"
 #include "mission/tmtc/WebcamCommandingService.h"
 #include "mission/webcam/WebcamDefinitions.h"
@@ -21,35 +21,23 @@ int main() {
     objectManager->initialize();
 
     auto* webcamHandler = objectManager->get<WebcamDeviceHandler>(webcam::objectIdWebcamHandler);
-    auto* webcamService =
-        objectManager->get<webcam::WebcamCommandingService>(webcam::objectIdWebcamCommandingService);
-    auto* telemetrySink =
-        objectManager->get<webcam::StubTelemetrySink>(webcam::objectIdWebcamTelemetrySink);
-    auto* verificationSink = objectManager->get<webcam::StubVerificationReceiver>(
-        webcam::objectIdWebcamVerificationSink);
-    auto* pusDistributor =
-        objectManager->get<webcam::StubPusDistributor>(webcam::objectIdWebcamTcDistributor);
+    auto* webcamService = objectManager->get<webcam::WebcamCommandingService>(webcam::objectIdWebcamCommandingService);
+    auto* telemetrySink = objectManager->get<webcam::StubTelemetrySink>(webcam::objectIdWebcamTelemetrySink);
+    auto* verificationSink = objectManager->get<webcam::StubVerificationReceiver>(webcam::objectIdWebcamVerificationSink);
+    auto* pusDistributor = objectManager->get<webcam::StubPusDistributor>(webcam::objectIdWebcamTcDistributor);
     (void)webcamHandler;
     (void)webcamService;
 
     auto* taskFactory = TaskFactory::instance();
     auto priority = 0;
-    PeriodicTaskIF* webcamTask = taskFactory->createPeriodicTask(
-        "WEBCAM_TASK", priority, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
+    PeriodicTaskIF* webcamTask = taskFactory->createPeriodicTask("WEBCAM_TASK", priority, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
     webcamTask->addComponent(webcam::objectIdWebcamHandler);
     webcamTask->startTask();
 
-    PeriodicTaskIF* tmtcTask = taskFactory->createPeriodicTask(
-        "TMTC_TASK", priority, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
-    if (webcamService != nullptr) {
-        tmtcTask->addComponent(webcam::objectIdWebcamCommandingService);
-    }
-    if (telemetrySink != nullptr) {
-        tmtcTask->addComponent(webcam::objectIdWebcamTelemetrySink);
-    }
-    if (verificationSink != nullptr) {
-        tmtcTask->addComponent(webcam::objectIdWebcamVerificationSink);
-    }
+    PeriodicTaskIF* tmtcTask = taskFactory->createPeriodicTask("TMTC_TASK", priority, PeriodicTaskIF::MINIMUM_STACK_SIZE, 1.0, nullptr);
+    if (webcamService != nullptr) {tmtcTask->addComponent(webcam::objectIdWebcamCommandingService);}
+    if (telemetrySink != nullptr) {tmtcTask->addComponent(webcam::objectIdWebcamTelemetrySink);}
+    if (verificationSink != nullptr) {tmtcTask->addComponent(webcam::objectIdWebcamVerificationSink);}
     tmtcTask->startTask();
 
     using namespace std::chrono_literals;

@@ -1,4 +1,4 @@
-#include "WebcamDeviceHandler.h"
+#include "mission/webcam/WebcamDeviceHandler.h"
 
 #include <fsfw/devicehandlers/DeviceCommunicationIF.h>
 #include <fsfw/action/ActionMessage.h>
@@ -6,7 +6,7 @@
 #include <fsfw/retval.h>
 #include <fsfw/serviceinterface/ServiceInterface.h>
 #include "mission/messaging/MessageTypes.h"
-#include "webcam/WebcamDefinitions.h"
+#include "WebcamDefinitions.h"
 #include <cstring>
 #include <iomanip>
 
@@ -59,7 +59,7 @@ ReturnValue_t WebcamDeviceHandler::buildNormalDeviceCommand(DeviceCommandId_t *d
   if (deviceCommand == nullptr) {
     return returnvalue::FAILED;
   }
-  if (getComIF() == nullptr) {
+  if (communicationInterface == nullptr) {
     return returnvalue::FAILED;
   }
   if (snapshotRequested) {
@@ -271,7 +271,7 @@ ReturnValue_t WebcamDeviceHandler::buildCommandFromCommand(DeviceCommandId_t dev
 }
 
 void WebcamDeviceHandler::prepareReply(DeviceCommandId_t commandId) {
-  if (getComIF() == nullptr) {
+  if (communicationInterface == nullptr) {
     fabricatedReplyId = DeviceHandlerIF::NO_COMMAND_ID;
     replyReady = false;
     rawPacket = nullptr;
