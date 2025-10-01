@@ -25,6 +25,7 @@ protected:
     ReturnValue_t buildTransitionDeviceCommand(DeviceCommandId_t *deviceCommand) override;
     ReturnValue_t buildNormalDeviceCommand(DeviceCommandId_t *deviceCommand) override;
     void fillCommandAndReplyMap() override;
+    uint32_t getTransitionDelayMs(Mode_t modeFrom, Mode_t modeTo) override;
     ReturnValue_t scanForReply(const uint8_t *data, size_t len, DeviceCommandId_t *foundId, size_t *foundLen) override;
     ReturnValue_t interpretDeviceReply(DeviceCommandId_t id, const uint8_t *packet) override;
     ReturnValue_t getParameter(uint8_t domainId, uint8_t parameterId, ParameterWrapper *parameterWrapper, const ParameterWrapper *newValues, uint16_t startAtIndex) override;

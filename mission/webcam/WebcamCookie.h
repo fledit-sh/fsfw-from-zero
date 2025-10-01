@@ -18,6 +18,3 @@ private:
     std::string devicePath;  // linux device paths. very clever.
     double initialFrameRate; // initial framerate
 };
-
-
-#endif //FSFW_FROM_ZERO_WEBCAMCOOKIE_H

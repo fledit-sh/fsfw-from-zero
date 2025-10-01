@@ -23,7 +23,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/spec/v
 - 
 
 ### Fixed
--
+- removed endif in cookie, triggered compilation failure
 
 ## [.0.0] - 2025-10-01
 ### Added

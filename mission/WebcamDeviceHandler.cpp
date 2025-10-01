@@ -40,6 +40,10 @@ void WebcamDeviceHandler::doShutDown() {
   setMode(MODE_OFF);
 }
 
+uint32_t WebcamDeviceHandler::getTransitionDelayMs(Mode_t, Mode_t) {
+  return 0;
+}
+
 ReturnValue_t WebcamDeviceHandler::buildTransitionDeviceCommand(DeviceCommandId_t *deviceCommand) {
   transitionCommandPending = false;
   if (deviceCommand != nullptr) {
