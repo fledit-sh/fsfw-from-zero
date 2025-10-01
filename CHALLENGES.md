@@ -22,3 +22,5 @@ Introduced scaffolding and somehow made it work. Oriented on the ThermalDeviceHa
 5. Encountered some problems with commandmessagecleaner. 
 6. ERROR | 13:12:56.641 | DeviceHandlerBase::initialize: Object ID 0x57000001 | Passed communication IF invalid
 7. Tried to schedule the DeviceHandler... Still not working properly
+8. Stupid, forgot the ComIF.
+9. 
