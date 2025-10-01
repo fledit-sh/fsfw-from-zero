@@ -4,7 +4,6 @@
 
 #include "WebcamDefinitions.h"
 
-#include "WebcamDefinitions.h"
 
 namespace webcam {
 
