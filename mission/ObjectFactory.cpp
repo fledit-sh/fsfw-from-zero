@@ -25,6 +25,7 @@ namespace {
     std::unique_ptr<WebcamCookie> webcamCookie;
     std::unique_ptr<WebcamDeviceHandler> webcamHandler;
     std::unique_ptr<webcam::WebcamCommandingService> webcamService;
+    bool serviceRegistered = false;
 }
 
 void ObjectFactory::createMissionObjects() {
@@ -82,5 +83,9 @@ void ObjectFactory::createMissionObjects() {
         }
         webcamService->setPacketSource(webcam::objectIdWebcamTcDistributor);
         webcamService->setPacketDestination(webcam::objectIdWebcamTelemetrySink);
+    }
+    if (pusDistributor != nullptr && webcamService != nullptr && !serviceRegistered) {
+        pusDistributor->registerService(webcamService.get());
+        serviceRegistered = true;
     }
 }

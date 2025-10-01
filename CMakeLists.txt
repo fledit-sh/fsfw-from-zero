@@ -5,6 +5,7 @@ project(fsfw-from-zero VERSION 0.1.0)
 # Sometimes, a C++ project might require a certain C++ standard to build.
 # The following directives make sure that the compiler supports the required
 # standard
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
