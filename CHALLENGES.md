@@ -1,5 +1,4 @@
 # Getting Started
-clone the repo for the tutorial
 
 1. Really Frustrating:
 Spending hours on the build file when cloning the repo. correct etl library is important and not in the readme.
@@ -16,3 +15,7 @@ cmake --install build/
 ```bash
 sudo pacman -S --needed gcc make cmake pkgconf opencv v4l-utils
 ```
+
+3. Deriving the DeviceHandlerBase as a WebcamHandler. Requires a lot of fiddling, but the dependencies of the fsfw make quite clear what you need and provide sufficient documentation.
+
+
