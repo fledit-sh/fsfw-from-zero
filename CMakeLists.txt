@@ -23,9 +23,7 @@ if(EXISTS ${FSFW_SOURCE_DIR}/CMakeLists.txt)
     endif()
 else()
     message(WARNING "FSFW submodule not found. Building with stub library.")
-    add_library(fsfw INTERFACE
-            mission/webcam/WebcamDefinitions.cpp
-            mission/webcam/WebcamDefinitions.h)
+    add_library(fsfw INTERFACE)
 endif()
 
 

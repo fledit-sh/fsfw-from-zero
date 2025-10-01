@@ -1,6 +1,12 @@
 #include "WebcamDeviceHandler.h"
 
 #include <fsfw/devicehandlers/DeviceCommunicationIF.h>
+#include <fsfw/returnvalues/HasReturnvaluesIF.h>
+
+namespace {
+  constexpr uint8_t STREAMING_ENABLED_REPLY_FLAG = 1;
+  constexpr uint8_t STREAMING_DISABLED_REPLY_FLAG = 0;
+}
 
 WebcamDeviceHandler::WebcamDeviceHandler(object_id_t objectId, object_id_t deviceCommunication,
                                          CookieIF *comCookie, FailureIsolationBase *fdirInstance,
