@@ -38,6 +38,8 @@ add_executable(fsfw-from-zero
         mission/webcam/WebcamDefinitions.cpp
         mission/messaging/SystemMessage.cpp
         mission/messaging/MessageTypes.cpp
+        mission/tmtc/TmtcInfrastructure.cpp
+        mission/tmtc/WebcamCommandingService.cpp
 
 )
 add_executable(webcam_test test/webcam.cpp)
