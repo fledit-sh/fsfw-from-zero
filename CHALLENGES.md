@@ -12,4 +12,7 @@ cmake -B build .
 cmake --install build/
 ```
 
-2. asdf
+2. Making the webcam work. This requires opencv and some fiddling with the hardware. In this project a hello world has been generated with GPT5 to get the basic hardware running.
+```bash
+sudo pacman -S --needed gcc make cmake pkgconf opencv v4l-utils
+```
