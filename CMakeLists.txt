@@ -33,6 +33,7 @@ add_executable(fsfw-from-zero
         main.cpp
         mission/ObjectFactory.cpp
         mission/WebcamDeviceHandler.cpp
+        mission/webcam/WebcamComIF.cpp
         mission/webcam/WebcamCookie.cpp
         mission/webcam/WebcamDefinitions.cpp
         mission/messaging/SystemMessage.cpp
