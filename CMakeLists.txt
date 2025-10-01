@@ -28,7 +28,7 @@ endif()
 
 
 # Add our executable and its only source file
-add_executable(fsfw-from-zero main.cpp)
+add_executable(fsfw-from-zero main.cpp mission/WebcamDeviceHandler.cpp mission/webcam/WebcamCookie.cpp mission/webcam/WebcamDefinitions.cpp)
 add_executable(webcam_test test/webcam.cpp)
 #add_executable(webcam_fsfw mission/WebcamDeviceHandler.cpp)
 
