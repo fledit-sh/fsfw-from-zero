@@ -1,4 +1,4 @@
-#include "mission/SystemMessage.h"
+#include "mission/messaging/SystemMessage.h"
 
 #include "fsfw/ipc/CommandMessage.h"
 
