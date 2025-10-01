@@ -45,6 +45,7 @@ namespace webcam {
         explicit WebcamCommandingService(object_id_t objectId, VerificationReporterIF* reporter = nullptr);
 
     protected:
+        ReturnValue_t initialize() override;
         ReturnValue_t isValidSubservice(uint8_t subservice) override;
         ReturnValue_t getMessageQueueAndObject(uint8_t subservice, const uint8_t* tcData, size_t tcDataLen,
                                                MessageQueueId_t* id, object_id_t* objectId) override;
